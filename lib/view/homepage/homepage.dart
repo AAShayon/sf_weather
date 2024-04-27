@@ -60,7 +60,6 @@ class _HomepageState extends State<Homepage> {
                             padding: EdgeInsets.only(top: 130.h,left: 20.w,right: 20.w),
                             child:
                             Card(
-
                               color: Colors.transparent,
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(25)),
