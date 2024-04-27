@@ -3,16 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:sf_weather/utils/colors.dart';
 import 'package:sf_weather/view/homepage/widgets/Location.dart';
-import 'package:sf_weather/view/homepage/widgets/button.dart';
 import 'package:sf_weather/view/homepage/widgets/custom_clipper.dart';
 import 'package:sf_weather/view/homepage/widgets/days_information.dart';
 import 'package:sf_weather/view/homepage/widgets/temperature.dart';
 import 'package:sf_weather/view/homepage/widgets/temperature_forecast_card.dart';
-import 'package:sf_weather/view/homepage/widgets/temperature_with_o.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
