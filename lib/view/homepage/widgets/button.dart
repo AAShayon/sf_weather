@@ -24,10 +24,10 @@ class DayButton extends StatelessWidget {
           child: Padding(
             padding:EdgeInsets.symmetric(vertical:8.h,horizontal: 35.w),
             child: Text(text,style: GoogleFonts.lato(
-              textStyle: Theme.of(context).textTheme.displaySmall!.copyWith(color: Colors.white),
+              textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(color: Colors.white),
               fontWeight: FontWeight.w600,
               fontStyle: FontStyle.normal,
-              fontSize: 20.sp,
+              fontSize: 13.sp,
             )),
           ),
         ),

@@ -13,7 +13,7 @@ class DaysButtonField extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
        DayButton(text: 'Today',color: AppColor.primaryColor, onTap: () {  },),
-        SizedBox(width: 20.w,),
+        SizedBox(width: 10.w,),
          DayButton(text: 'Next Days',color: Colors.black, onTap: () {  },),
       ],
     );
