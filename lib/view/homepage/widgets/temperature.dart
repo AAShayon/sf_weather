@@ -47,6 +47,9 @@ class MoreInformation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text('Heavy Cloud -H:17° L:4°',style: GoogleFonts.lato(
+      textStyle:Theme.of(context).textTheme.titleLarge!.copyWith(color: Colors.white),
+      fontStyle:FontStyle.normal,
+
     ),);
   }
 }
