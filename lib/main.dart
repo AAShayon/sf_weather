@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sf_weather/view/homepage/homepage.dart';
 
+
+
 void main() {
   runApp(const MyApp());
 }
@@ -17,7 +19,7 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context ,child){
-        return  MaterialApp(
+        return  const MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Homepage()
         );
