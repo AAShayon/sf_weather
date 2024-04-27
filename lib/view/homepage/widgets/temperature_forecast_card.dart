@@ -11,8 +11,7 @@ class TemperatureInformationPerHour extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.red,
-      height: 145.h,
+      height: 160.h,
       child: ListView.builder(
         itemCount: 12, // Display only 12 hours from current time to 11:59 AM
         scrollDirection: Axis.horizontal,
