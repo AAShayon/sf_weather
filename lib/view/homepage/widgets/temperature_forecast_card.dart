@@ -10,8 +10,9 @@ class TemperatureInformationPerHour extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 170.h,
+    return Container(
+      color: Colors.red,
+      height: 145.h,
       child: ListView.builder(
         itemCount: 12, // Display only 12 hours from current time to 11:59 AM
         scrollDirection: Axis.horizontal,
@@ -31,13 +32,6 @@ class TemperatureInformationPerHour extends StatelessWidget {
 }
 
 
-
-
-
-
-
-
-
 class TemperatureForecastCard extends StatelessWidget {
   const TemperatureForecastCard({
     super.key, required this.time,
@@ -55,7 +49,7 @@ class TemperatureForecastCard extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.symmetric(vertical:10.h,horizontal: 10.w),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(time,style: GoogleFonts.lato(
