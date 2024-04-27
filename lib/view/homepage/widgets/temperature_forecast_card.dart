@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sf_weather/view/homepage/widgets/temperature_with_o.dart';
@@ -42,27 +44,31 @@ class TemperatureForecastCard extends StatelessWidget {
     return SizedBox(
       child: Column(
         children: [
-          Card(
-            color: Colors.white.withOpacity(.1),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-            child: Padding(
-              padding: EdgeInsets.symmetric(vertical:10.h,horizontal: 10.w),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(time,style: GoogleFonts.lato(
-                    textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(color: Colors.white),
-                    fontWeight: FontWeight.w600,
-                    fontStyle: FontStyle.normal,
-                    fontSize: 13.sp,
-                  )),
-                  SizedBox(height: 2.5.h,),
-                  Image.asset('assets/heavycloud.png',width: 50.w,height:50.h,),
-                  TemperatureRead(temperature: '13',fontsize: 30,),
-
-                ],
-
+          Flexible(
+            child: Card(
+              color: Colors.white.withOpacity(.1),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical:10.h,horizontal: 10.w),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Flexible(
+                      child: Text(time,style: GoogleFonts.lato(
+                        textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(color: Colors.white),
+                        fontWeight: FontWeight.w600,
+                        fontStyle: FontStyle.normal,
+                        fontSize: 13.sp,
+                      )),
+                    ),
+                    SizedBox(height: 2.5.h,),
+                    Image.asset('assets/heavycloud.png',width: 50.w,height:50.h,),
+                    TemperatureRead(temperature: '13',fontsize: 30,),
+            
+                  ],
+            
+                ),
               ),
             ),
           ),
