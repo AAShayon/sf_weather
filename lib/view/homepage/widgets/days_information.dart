@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sf_weather/utils/colors.dart';
+import 'package:sf_weather/utils/const.dart';
 import 'package:sf_weather/view/homepage/widgets/button.dart';
 class DaysButtonField extends StatelessWidget {
   const DaysButtonField({
