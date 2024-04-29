@@ -121,8 +121,7 @@ class TemperatureInformationPerHour extends StatelessWidget {
                 .hour!.length,
             scrollDirection: Axis.horizontal,
             itemBuilder: (BuildContext context, int index) {
-              final data =
-                  wc.weatherResponseModelData!.forecast!.forecastday![0].hour;
+              final data = wc.weatherResponseModelData!.forecast!.forecastday![0].hour;
               DateTime currentTime = DateTime.now();
               int currentHour = currentTime.hour;
               bool useCurrentTime = false;
@@ -132,8 +131,7 @@ class TemperatureInformationPerHour extends StatelessWidget {
               if (apiTime.hour == currentHour) {
                 useCurrentTime = true;
               }
-              int startingHour =
-              useCurrentTime ? currentHour : currentTime.hour;
+              int startingHour = useCurrentTime ? currentHour : currentTime.hour;
               String startingPeriod = startingHour < 12 ? 'AM' : 'PM';
               startingHour = startingHour % 12 == 0 ? 12 : startingHour % 12;
               int hour =
@@ -149,7 +147,21 @@ class TemperatureInformationPerHour extends StatelessWidget {
                 temperatureRead: '${data[index].tempC}',
               );
             },
-          ) : CircularProgressIndicator(),
+          ) :
+          Center(
+            child: ListView.builder(
+              itemCount: wc.weatherResponseModelData!.forecast?.forecastday!.length,
+                scrollDirection: Axis.horizontal,
+                itemBuilder:(BuildContext context, int index){
+                  final data = wc.weatherResponseModelData!.forecast!.forecastday![index];
+                  return TemperatureForecastCard(time: data.date.toString(), iconUrl: '${
+                    data.day!.condition!.icon
+                  }', temperatureRead: '${data.day!.avgtempC}');
+
+                }
+
+            ),
+          ),
         ),
       ],
     );
