@@ -19,6 +19,7 @@ class LocationAndCurrentInformation extends StatelessWidget {
     }
     return Column(
       children: [
+
         CurrentLocationName(locationName: wc.weatherResponseModelData!.location != null ?'${wc.weatherResponseModelData!.location!.name}':'Error',),
         SizedBox(
           height: 5.h,
