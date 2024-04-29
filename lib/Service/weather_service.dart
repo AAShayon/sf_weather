@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:sf_weather/Service/https_service.dart';
-import 'package:sf_weather/models/response/weather_response_model_data.dart';
+import 'package:sf_weather/models/response/weather_response_model.dart';
+// import 'package:sf_weather/models/response/weather_response_model_data.dart';
 import 'package:sf_weather/utils/const.dart';
 
 class WeatherServices {
@@ -12,7 +13,7 @@ class WeatherServices {
   }
 
   WeatherServices._internal();
-  static Future<WeatherResponseModelData?> getCurrentLocationForecastWeatherReport({required String city}) async{
+  static Future<WeatherResponseModel?> getCurrentLocationForecastWeatherReport({required String city}) async{
     try{
       final response=await _httpsService.get(
         ApiRequestUrl.forecastUrl,
@@ -23,10 +24,10 @@ class WeatherServices {
         },
       );
       log("===>${response!.statusCode}");
-      log("===>${response!.data}");
-      if(response!.statusCode == 200 && response.data != null){
+      log("===>${response.data}");
+      if(response.statusCode == 200 && response.data != null){
         log("===>data: ${response.data}");
-        WeatherResponseModelData? weatherResponseModelData=WeatherResponseModelData.fromJson(response.data);
+        WeatherResponseModel? weatherResponseModelData=WeatherResponseModel.fromJson(response.data);
         return weatherResponseModelData;
 
       }

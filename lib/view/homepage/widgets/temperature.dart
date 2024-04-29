@@ -17,21 +17,26 @@ class TemperatureShowField extends StatelessWidget {
         wc.weatherResponseModelData!.current == null
 
     ) {
-      return Center(child: CircularProgressIndicator(),);
+      return const Center(child: CircularProgressIndicator(),);
     }
     return SizedBox(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          wc.weatherResponseModelData!.current!.condition != null
-              ? Image.network(
-            'https:${wc.weatherResponseModelData!.current!.condition!.icon}',
-            width: 100.w,
-            height: 100.h,) : Image.asset(
-            'assets/placeholder.png',
-            width: 100.w,
-            height: 100.h,
-          ), // Add missing string interpolation here
+          Container(
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,color:Colors.transparent.withOpacity(.02)
+            ),
+            child:    wc.weatherResponseModelData!.current!.condition != null
+                ? Image.network(
+              'https:${wc.weatherResponseModelData!.current!.condition!.icon}',
+              width: 100.w,
+              height: 100.h,) : Image.asset(
+              'assets/placeholder.png',
+              width: 100.w,
+              height: 100.h,
+            ),
+          ),
 
           SizedBox(width: 15.w,),
           TemperatureRead(
@@ -46,12 +51,14 @@ class TemperatureShowField extends StatelessWidget {
 
 class MoreInformation extends StatelessWidget {
   const MoreInformation({
-    super.key,
+    super.key, required this.condition, required this.humidity, required this.lon,
   });
-
+  final String condition;
+  final String humidity;
+  final String lon;
   @override
   Widget build(BuildContext context) {
-    return Text('Heavy Cloud -H:17° L:4°', style: GoogleFonts.lato(
+    return Text('$condition -H:$humidity° L:$lon°', style: GoogleFonts.lato(
       textStyle: Theme
           .of(context)
           .textTheme

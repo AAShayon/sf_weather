@@ -1,14 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:sf_weather/controller/weather_page_controller.dart';
 import 'package:sf_weather/utils/const.dart';
 import 'package:sf_weather/view/homepage/widgets/location_information.dart';
 import 'package:sf_weather/view/homepage/widgets/clip_path_with_data.dart';
-import 'package:sf_weather/view/homepage/widgets/days_information.dart';
 import 'package:sf_weather/view/homepage/widgets/temperature_forecast_card.dart';
 
 class Homepage extends StatefulWidget {
@@ -55,13 +51,9 @@ class _HomepageState extends State<Homepage> {
                           ])),
                   child: Padding(
                     padding: EdgeInsets.symmetric(vertical: 10.h),
-                    child: Column(
+                    child: const Column(
                       children: [
                         LocationAndCurrentInformation(),
-                        DaysButtonField(),
-                        SizedBox(
-                          height: 25.h,
-                        ),
                         TemperatureInformationPerHour(),
                         ClipPathWithOtherInformation(),
                       ],

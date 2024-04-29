@@ -14,18 +14,27 @@ class LocationAndCurrentInformation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final wc=Provider.of<WeatherPageController>(context);
+    if (wc.weatherResponseModelData == null || wc.weatherResponseModelData!.location == null || wc.weatherResponseModelData!.current == null){
+      return const Center(child: CircularProgressIndicator(),);
+    }
     return Column(
       children: [
-        CurrentLocationName(),
+        CurrentLocationName(locationName: wc.weatherResponseModelData!.location != null ?'${wc.weatherResponseModelData!.location!.name}':'Error',),
         SizedBox(
           height: 5.h,
         ),
-        LocationSelect(),
+        const LocationSelect(),
         SizedBox(
           height: 5.h,
         ),
-        TemperatureShowField(),
-        MoreInformation(),
+        const TemperatureShowField(),
+        MoreInformation(condition:
+        wc.weatherResponseModelData!.current != null
+              ? '${wc.weatherResponseModelData!.current!.condition!.text}':'Error',
+          humidity:wc.weatherResponseModelData!.current != null
+              ? '${wc.weatherResponseModelData!.current!.humidity}':'Error',
+
+          lon:wc.weatherResponseModelData!.location != null ? '${wc.weatherResponseModelData!.location!.lon}': 'Error',),
         SizedBox(
           height: 30.h,
         ),
@@ -38,17 +47,12 @@ class LocationAndCurrentInformation extends StatelessWidget {
 
 class CurrentLocationName extends StatelessWidget {
   const CurrentLocationName({
-    super.key,
+    super.key, required this.locationName,
   });
-
+ final String locationName;
   @override
   Widget build(BuildContext context) {
-    final wc=Provider.of<WeatherPageController>(context);
-    if (wc.weatherResponseModelData == null || wc.weatherResponseModelData!.location == null){
-      return const Center(child: CircularProgressIndicator(),);
-    }
-
-    return Text('${wc.weatherResponseModelData!.location!.name}',style: GoogleFonts.lato(
+    return Text(locationName,style: GoogleFonts.lato(
         textStyle: Theme.of(context).textTheme.displayLarge!.copyWith(color: Colors.white),
         fontWeight: FontWeight.w700,
         fontStyle: FontStyle.normal

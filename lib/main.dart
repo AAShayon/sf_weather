@@ -11,15 +11,12 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key});
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Define linear gradient
-
-    // Set system overlay style
     SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(
+      const SystemUiOverlayStyle(
         statusBarColor: AppColor.primaryColor,
       ),
     );
@@ -35,7 +32,7 @@ class MyApp extends StatelessWidget {
         builder: (context, child) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
-            home:Homepage(),
+            home:const Homepage(),
             theme: ThemeData(
               scaffoldBackgroundColor: Colors.transparent, // Make scaffold background transparent
             ),

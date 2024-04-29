@@ -168,7 +168,7 @@ class HttpService{
     }
   }
   Future<Response?> post(String path ,Map data)async{
-    log("${path}");
+    log(path);
     try{
       final response= await _dio.post(path,data: data);
       log("${response.statusCode}");

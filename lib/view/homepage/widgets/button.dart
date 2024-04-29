@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sf_weather/utils/const.dart';
 class DayButton extends StatelessWidget {
   const DayButton({
     super.key, required this.text, required this.color, required this.onTap,

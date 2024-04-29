@@ -55,38 +55,42 @@ class ClipPathWithOtherInformation extends StatelessWidget {
                                   mainAxisAlignment:
                                   MainAxisAlignment.spaceAround,
                                   children: [
-                                    Text('Sunset',style:Theme.of(context)
-                                        .textTheme
-                                        .displayLarge!
-                                        .copyWith(
-                                        color: Colors.white,
-                                        fontWeight:
-                                        FontWeight.w400,
-                                        fontSize: 17.sp)),
-                                    RichText(
-                                        text: TextSpan(
-                                            text: '5:31',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .displayLarge!
-                                                .copyWith(
-                                                color: Colors.white,
-                                                fontWeight:
-                                                FontWeight.w700,
-                                                fontSize: 20.sp),
-                                            children:  <TextSpan>[
-                                              TextSpan(
-                                                text: 'PM',style:Theme.of(context)
+                                    Flexible(
+                                      child: Text('Sunset',style:Theme.of(context)
+                                          .textTheme
+                                          .displayLarge!
+                                          .copyWith(
+                                          color: Colors.white,
+                                          fontWeight:
+                                          FontWeight.w400,
+                                          fontSize: 17.sp)),
+                                    ),
+                                    Flexible(
+                                      child: RichText(
+                                          text: TextSpan(
+                                              text: '5:31',
+                                              style: Theme.of(context)
                                                   .textTheme
                                                   .displayLarge!
                                                   .copyWith(
                                                   color: Colors.white,
                                                   fontWeight:
-                                                  FontWeight.w500,
-                                                  fontSize: 17.sp),
-                                              )
+                                                  FontWeight.w700,
+                                                  fontSize: 20.sp),
+                                              children:  <TextSpan>[
+                                                TextSpan(
+                                                  text: 'PM',style:Theme.of(context)
+                                                    .textTheme
+                                                    .displayLarge!
+                                                    .copyWith(
+                                                    color: Colors.white,
+                                                    fontWeight:
+                                                    FontWeight.w500,
+                                                    fontSize: 17.sp),
+                                                )
 
-                                            ]))
+                                              ])),
+                                    )
                                   ],
                                 ),
                               )
@@ -103,39 +107,43 @@ class ClipPathWithOtherInformation extends StatelessWidget {
                                   mainAxisAlignment:
                                   MainAxisAlignment.spaceAround,
                                   children: [
-                                    Text('Sunrise',style:Theme.of(context)
-                                        .textTheme
-                                        .displayLarge!
-                                        .copyWith(
-                                        color: Colors.white,
-                                        fontWeight:
-                                        FontWeight.w400,
-                                        fontSize: 17.sp)),
+                                    Flexible(
+                                      child: Text('Sunrise',style:Theme.of(context)
+                                          .textTheme
+                                          .displayLarge!
+                                          .copyWith(
+                                          color: Colors.white,
+                                          fontWeight:
+                                          FontWeight.w400,
+                                          fontSize: 17.sp)),
+                                    ),
                                     // Text('5:31Pm')
-                                    RichText(
-                                        text: TextSpan(
-                                            text: '7:00',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .displayLarge!
-                                                .copyWith(
-                                                color: Colors.white,
-                                                fontWeight:
-                                                FontWeight.w700,
-                                                fontSize: 20.sp),
-                                            children:  <TextSpan>[
-                                              TextSpan(
-                                                text: 'AM',style:Theme.of(context)
+                                    Flexible(
+                                      child: RichText(
+                                          text: TextSpan(
+                                              text: '7:00',
+                                              style: Theme.of(context)
                                                   .textTheme
                                                   .displayLarge!
                                                   .copyWith(
                                                   color: Colors.white,
                                                   fontWeight:
-                                                  FontWeight.w500,
-                                                  fontSize: 17.sp),
-                                              )
+                                                  FontWeight.w700,
+                                                  fontSize: 20.sp),
+                                              children:  <TextSpan>[
+                                                TextSpan(
+                                                  text: 'AM',style:Theme.of(context)
+                                                    .textTheme
+                                                    .displayLarge!
+                                                    .copyWith(
+                                                    color: Colors.white,
+                                                    fontWeight:
+                                                    FontWeight.w500,
+                                                    fontSize: 17.sp),
+                                                )
 
-                                            ]))
+                                              ])),
+                                    )
                                   ],
                                 ),
                               ),
@@ -186,39 +194,43 @@ class ClipPathWithOtherInformation extends StatelessWidget {
                                   mainAxisAlignment:
                                   MainAxisAlignment.spaceAround,
                                   children: [
-                                    Text('UV Index',style:Theme.of(context)
-                                        .textTheme
-                                        .displayLarge!
-                                        .copyWith(
-                                        color: Colors.white,
-                                        fontWeight:
-                                        FontWeight.w400,
-                                        fontSize: 17.sp)),
+                                    Expanded(
+                                      child: Text('UV Index',style:Theme.of(context)
+                                          .textTheme
+                                          .displayLarge!
+                                          .copyWith(
+                                          color: Colors.white,
+                                          fontWeight:
+                                          FontWeight.w400,
+                                          fontSize: 17.sp)),
+                                    ),
                                     // Text('5:31Pm')
-                                    RichText(
-                                        text: TextSpan(
-                                            text: '1',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .displayLarge!
-                                                .copyWith(
-                                                color: Colors.white,
-                                                fontWeight:
-                                                FontWeight.w300,
-                                                fontSize: 17.sp),
-                                            children:  <TextSpan>[
-                                              TextSpan(
-                                                text: 'Low',style:Theme.of(context)
+                                    Flexible(
+                                      child: RichText(
+                                          text: TextSpan(
+                                              text: '1',
+                                              style: Theme.of(context)
                                                   .textTheme
                                                   .displayLarge!
                                                   .copyWith(
                                                   color: Colors.white,
                                                   fontWeight:
-                                                  FontWeight.w500,
-                                                  fontSize: 15.sp),
-                                              )
+                                                  FontWeight.w300,
+                                                  fontSize: 17.sp),
+                                              children:  <TextSpan>[
+                                                TextSpan(
+                                                  text: 'Low',style:Theme.of(context)
+                                                    .textTheme
+                                                    .displayLarge!
+                                                    .copyWith(
+                                                    color: Colors.white,
+                                                    fontWeight:
+                                                    FontWeight.w500,
+                                                    fontSize: 15.sp),
+                                                )
 
-                                            ]))
+                                              ])),
+                                    )
                                   ],
                                 ),
                               )

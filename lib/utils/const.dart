@@ -24,8 +24,8 @@ const bggradientColor = LinearGradient(
 
 final cpgradientColor = LinearGradient(
   colors: [
-    Color(0xffffffff),
-    Color(0xffffffff).withOpacity(.0),
+    const Color(0xffffffff),
+    const Color(0xffffffff).withOpacity(.0),
   ],
   begin: Alignment.topCenter,
   end: Alignment.bottomCenter,
