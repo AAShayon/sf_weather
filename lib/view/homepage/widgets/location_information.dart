@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:sf_weather/controller/weather_page_controller.dart';
+import 'package:sf_weather/helper/helper.dart';
 import 'package:sf_weather/view/homepage/widgets/temperature.dart';
 
 
@@ -71,8 +73,16 @@ class LocationSelect extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return InkWell(
-      onTap: (){},
+      onTap: () async{
+        Position? currentPosition;
+        currentPosition =await Helper.determinePosition();
+        final WeatherPageController weatherPageController=Provider.of<WeatherPageController>(context,listen: false);
+        await weatherPageController.getWeatherResponse(city: "${currentPosition!.longitude}, ${currentPosition!.latitude}");
+
+
+      },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
