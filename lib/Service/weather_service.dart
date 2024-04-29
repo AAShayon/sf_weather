@@ -19,7 +19,7 @@ class WeatherServices {
         ApiRequestUrl.forecastUrl,
         data: {
           'key': '162d984ea8c348c1b84113333242604',
-          'q': 'Dhaka',
+          'q': city,
           'days': '3'
         },
       );
