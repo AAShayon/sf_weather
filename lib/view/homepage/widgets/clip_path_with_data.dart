@@ -60,14 +60,14 @@ class ClipPathWithOtherInformation extends StatelessWidget {
                                 padding: EdgeInsets.symmetric(horizontal: 5.w),
                                 child: Image.asset(
                                   'assets/day.png',
-                                  height: 56.h,
+                                  height: 50.h,
                                   width: 56.h,
                                   color: Colors.white,
                                 ),
                               ),
                               // SunSetSunRise(text: 'Sunset',time: '5:31 PM',),
                               Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 15.w,vertical: 8.h),
+                                padding: EdgeInsets.symmetric(horizontal: 9.w,vertical: 8.h),
                                 child: Column(
                                   crossAxisAlignment:
                                   CrossAxisAlignment.start,

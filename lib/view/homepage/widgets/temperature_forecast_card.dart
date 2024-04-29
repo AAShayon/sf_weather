@@ -9,8 +9,8 @@ import 'package:sf_weather/view/homepage/widgets/temperature_with_o.dart';
 
 class TemperatureInformationPerHour extends StatelessWidget {
   const TemperatureInformationPerHour({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -56,8 +56,7 @@ class TemperatureInformationPerHour extends StatelessWidget {
               int currentHour = currentTime.hour;
               bool useCurrentTime = false;
 
-              DateTime apiTime =
-              DateTime.parse(data![index].time.toString());
+              DateTime apiTime = DateTime.parse(data![index].time.toString());
               if (apiTime.hour == currentHour) {
                 useCurrentTime = true;
               }
@@ -77,21 +76,33 @@ class TemperatureInformationPerHour extends StatelessWidget {
                 temperatureRead: '${data[index].tempC}',
               );
             },
-          ) :
-          Center(
-            child: ListView.builder(
-              itemCount: wc.weatherResponseModelData!.forecast?.forecastday!.length,
-                scrollDirection: Axis.horizontal,
-                itemBuilder:(BuildContext context, int index){
-                  final data = wc.weatherResponseModelData!.forecast!.forecastday![index];
-                  return TemperatureForecastCard(time: data.date.toString(), iconUrl: '${
+          ) :wc.showNextDaysHourData ?
+          ListView.builder(
+            itemCount: wc.weatherResponseModelData!.forecast?.forecastday!.length,
+              scrollDirection: Axis.horizontal,
+              itemBuilder:(BuildContext context, int index){
+                final data = wc.weatherResponseModelData!.forecast!.forecastday![index];
+                return InkWell(
+                  onTap: (){
+                    wc.toggleHourDataView(false);
+                  },
+                  child: TemperatureForecastCard(time: data.date.toString(), iconUrl: '${
                     data.day!.condition!.icon
-                  }', temperatureRead: '${data.day!.avgtempC}');
+                  }', temperatureRead: '${data.day!.avgtempC}'),
+                );
 
-                }
+              }
 
-            ),
-          ),
+          ): ListView.builder(itemBuilder: (BuildContext context ,int index){
+            final data = wc.weatherResponseModelData!.forecast!.forecastday![index].hour;
+            return TemperatureForecastCard(
+              time: data![index].time.toString(),
+              iconUrl: '${data[index].condition!.icon}' ?? '',
+              temperatureRead: '${data[index].tempC}',
+            );
+
+
+          }),
         ),
       ],
     );

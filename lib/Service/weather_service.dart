@@ -20,7 +20,7 @@ class WeatherServices {
         data: {
           'key': '162d984ea8c348c1b84113333242604',
           'q': 'Dhaka',
-          'days': '2'
+          'days': '3'
         },
       );
       log("===>${response!.statusCode}");

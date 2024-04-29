@@ -8,11 +8,19 @@ class WeatherPageController extends ChangeNotifier{
   WeatherResponseModel? _weatherResponseModel;
 
   bool _showTodayData=true;
+  bool _showNextDaysHourData=true;
+  bool get showNextDaysHourData =>_showNextDaysHourData;
   bool get showTodayData => _showTodayData;
   void toggleDataView(bool showToday) {
     _showTodayData = showToday;
     notifyListeners();
   }
+
+  void toggleHourDataView(bool showHourData) {
+    _showNextDaysHourData = showHourData;
+    notifyListeners();
+  }
+
 
   bool? get isLoading => _isLoading;
   WeatherResponseModel? get weatherResponseModelData => _weatherResponseModel;
