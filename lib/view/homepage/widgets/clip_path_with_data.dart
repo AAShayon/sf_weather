@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
+import 'package:sf_weather/controller/weather_page_controller.dart';
 import 'package:sf_weather/utils/const.dart';
 import 'package:sf_weather/view/homepage/widgets/custom_clipper.dart';
 
@@ -13,6 +15,23 @@ class ClipPathWithOtherInformation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String uvLevel(int uvIndex) {
+      if (uvIndex <= 2) {
+        return 'Low';
+      } else if (uvIndex <= 5) {
+        return 'Moderate';
+      } else if (uvIndex <= 7) {
+        return 'High';
+      } else if (uvIndex <= 10) {
+        return 'Very High';
+      } else {
+        return 'Extreme';
+      }
+    }
+    final wc=Provider.of<WeatherPageController>(context);
+    if (wc.weatherResponseModelData == null || wc.weatherResponseModelData!.forecast == null || wc.weatherResponseModelData!.current == null ){
+      return const Center(child: CircularProgressIndicator(),);
+    }
     return Expanded(
       child: OtherInformation(
         child: Container(
@@ -68,7 +87,7 @@ class ClipPathWithOtherInformation extends StatelessWidget {
                                     Flexible(
                                       child: RichText(
                                           text: TextSpan(
-                                              text: '5:31',
+                                              text: wc.weatherResponseModelData!.forecast!.forecastday![0].astro!.sunset!.split(' ')[0],
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .displayLarge!
@@ -121,7 +140,7 @@ class ClipPathWithOtherInformation extends StatelessWidget {
                                     Flexible(
                                       child: RichText(
                                           text: TextSpan(
-                                              text: '7:00',
+                                              text:  wc.weatherResponseModelData!.forecast!.forecastday![0].astro!.sunrise!.split(' ')[0],
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .displayLarge!
@@ -148,11 +167,11 @@ class ClipPathWithOtherInformation extends StatelessWidget {
                                 ),
                               ),
                               Image.asset(
-                                'assets/night.png',
+                                'assets/day.png',
                                 height: 56.h,
                                 width: 56.h,
-                                color: Colors.white,
-                              )
+                                color: Colors.white10,
+                              ),
                             ],
                           ),
 
@@ -208,7 +227,7 @@ class ClipPathWithOtherInformation extends StatelessWidget {
                                     Flexible(
                                       child: RichText(
                                           text: TextSpan(
-                                              text: '1',
+                                              text: '${wc.weatherResponseModelData!.current!.uv}',
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .displayLarge!
@@ -219,7 +238,7 @@ class ClipPathWithOtherInformation extends StatelessWidget {
                                                   fontSize: 17.sp),
                                               children:  <TextSpan>[
                                                 TextSpan(
-                                                  text: 'Low',style:Theme.of(context)
+                                                  text: ' ${uvLevel(wc.weatherResponseModelData!.current!.uv!.toInt())}',style:Theme.of(context)
                                                     .textTheme
                                                     .displayLarge!
                                                     .copyWith(
