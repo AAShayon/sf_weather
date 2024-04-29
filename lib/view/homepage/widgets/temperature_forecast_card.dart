@@ -15,10 +15,10 @@ class TemperatureInformationPerHour extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final wc = Provider.of<WeatherPageController>(context);
-    if (wc.weatherResponseModelData == null ||
-        wc.weatherResponseModelData!.forecast == null ||
-        wc.weatherResponseModelData!.current == null) {
+    final weatherPageController = Provider.of<WeatherPageController>(context);
+    if (weatherPageController.weatherResponseModelData == null ||
+        weatherPageController.weatherResponseModelData!.forecast == null ||
+        weatherPageController.weatherResponseModelData!.current == null) {
       return const Center(child: CircularProgressIndicator());
     }
     return Column(
@@ -28,19 +28,19 @@ class TemperatureInformationPerHour extends StatelessWidget {
           children: [
             DayButton(
               text: 'Today',
-              color: wc.showTodayData ? AppColor.primaryColor : Colors.black,
+              color: weatherPageController.showTodayData ? AppColor.primaryColor : Colors.black,
               onTap: () {
-                wc.toggleDataView(true);
-                wc.toggleHourDataView(false);// Toggle to show today's data
+                weatherPageController.toggleDataView(true);
+                weatherPageController.toggleHourDataView(false);// Toggle to show today's data
               },
             ),
             SizedBox(width: 10.w),
             DayButton(
               text: 'Next Days',
-              color: wc.showTodayData ? Colors.black : AppColor.primaryColor,
+              color: weatherPageController.showTodayData ? Colors.black : AppColor.primaryColor,
               onTap: () {
-                wc.toggleDataView(false); // Toggle to show next days' data
-                wc.toggleHourDataView(true); // Toggle to show next days' data
+                weatherPageController.toggleDataView(false); // Toggle to show next days' data
+                weatherPageController.toggleHourDataView(true); // Toggle to show next days' data
               },
             ),
           ],
@@ -48,28 +48,23 @@ class TemperatureInformationPerHour extends StatelessWidget {
         SizedBox(height: 25.h),
         SizedBox(
           height: 160.h,
-          child: wc.showTodayData
+          child: weatherPageController.showTodayData
               ? ListView.builder(
-                  itemCount: wc.weatherResponseModelData!.forecast!
-                      .forecastday![0].hour!.length,
+                  itemCount: weatherPageController.weatherResponseModelData!.forecast!.forecastday![0].hour!.length,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (BuildContext context, int index) {
-                    final data = wc.weatherResponseModelData!.forecast!
-                        .forecastday![0].hour;
+                    final data = weatherPageController.weatherResponseModelData!.forecast!.forecastday![0].hour;
                     DateTime currentTime = DateTime.now();
                     int currentHour = currentTime.hour;
                     bool useCurrentTime = false;
 
-                    DateTime apiTime =
-                        DateTime.parse(data![index].time.toString());
+                    DateTime apiTime = DateTime.parse(data![index].time.toString());
                     if (apiTime.hour == currentHour) {
                       useCurrentTime = true;
                     }
-                    int startingHour =
-                        useCurrentTime ? currentHour : currentTime.hour;
+                    int startingHour = useCurrentTime ? currentHour : currentTime.hour;
                     String startingPeriod = startingHour < 12 ? 'AM' : 'PM';
-                    startingHour =
-                        startingHour % 12 == 0 ? 12 : startingHour % 12;
+                    startingHour = startingHour % 12 == 0 ? 12 : startingHour % 12;
                     int hour = (startingHour + index) % 12 == 0
                         ? 12
                         : (startingHour + index) % 12;
@@ -85,42 +80,37 @@ class TemperatureInformationPerHour extends StatelessWidget {
                     );
                   },
                 )
-              : wc.showNextDaysHourData
+              : weatherPageController.showNextDaysHourData
                   ? ListView.builder(
-                      itemCount: wc.weatherResponseModelData!.forecast
-                          ?.forecastday!.length,
+                      itemCount: weatherPageController.weatherResponseModelData!.forecast!.forecastday!.length,
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (BuildContext context, int index) {
-                        final data = wc.weatherResponseModelData!.forecast!
-                            .forecastday![index];
+                        final data = weatherPageController.weatherResponseModelData!.forecast!.forecastday![index];
                         return InkWell(
                           onTap: () {
-                            wc.toggleHourDataView(false);
+                            weatherPageController.toggleHourDataView(false);
+                            weatherPageController.setForecastDayIndex(forecastDayIndexValue: index);
+
                           },
                           child: TemperatureForecastCard(
-                              time: DateFormat.MMMEd()
-                                  .format(DateTime.parse('${data.date}'))
-                                  .toString(),
+                              time: DateFormat.MMMEd().format(DateTime.parse('${data.date}')).toString(),
                               iconUrl: '${data.day!.condition!.icon}',
                               temperatureRead: '${data.day!.avgtempC}'),
                         );
                       })
                   :
           ListView.builder(
-                      itemCount: wc.weatherResponseModelData!.forecast!
-                          .forecastday!.length,
+                      itemCount: weatherPageController.weatherResponseModelData!.forecast!.forecastday![weatherPageController.forecastDayIndex!].hour!.length,
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (BuildContext context, int index) {
-                        final data = wc.weatherResponseModelData!.forecast!
-                            .forecastday![index].hour;
-                        final time = wc.weatherResponseModelData!.forecast!
-                            .forecastday![index].hour![index].time;
-                        DateTime apiTime = DateTime.parse(time.toString());
+                        // final data = weatherPageController.weatherResponseModelData!.forecast!.forecastday![weatherPageController.forecastDayIndex!].hour;
+                        final data = weatherPageController.weatherResponseModelData!.forecast!.forecastday![weatherPageController.forecastDayIndex!].hour![index];
+                        DateTime apiTime = DateTime.parse(data.time.toString());
                         final formattedTime = DateFormat('h:mm a').format(apiTime);
                         return TemperatureForecastCard(
                           time: formattedTime,
-                          iconUrl: '${data![index].condition!.icon}' ?? '',
-                          temperatureRead: '${data[index].tempC}',
+                          iconUrl: '${data.condition!.icon}' ?? '',
+                          temperatureRead: '${data.tempC}',
                         );
                       },
                     ),
