@@ -20,6 +20,7 @@ class Weatherpage extends StatefulWidget {
 class _WeatherpageState extends State<Weatherpage> {
 
   Position? currentPosition;
+  final TextEditingController controller=TextEditingController();
 
   @override
   void initState() {
@@ -27,6 +28,11 @@ class _WeatherpageState extends State<Weatherpage> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       loadData(context);
     });
+  }
+  @override
+  void dispose() {
+    controller.dispose(); // Dispose the controller when not needed
+    super.dispose();
   }
 
   loadData(BuildContext context)async{
@@ -37,7 +43,7 @@ class _WeatherpageState extends State<Weatherpage> {
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController controller=TextEditingController();
+
     return Consumer<WeatherPageController>(
         builder: (context,weatherPageController,child) {
           return Scaffold(
