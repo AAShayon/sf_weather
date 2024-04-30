@@ -31,13 +31,6 @@ class LocationAndCurrentInformation extends StatelessWidget {
           height: 5.h,
         ),
         const TemperatureShowField(),
-        MoreInformation(condition:
-        wc.weatherResponseModelData!.current != null
-              ? '${wc.weatherResponseModelData!.current!.condition!.text}':'Error',
-          humidity:wc.weatherResponseModelData!.current != null
-              ? '${wc.weatherResponseModelData!.current!.humidity}':'Error',
-
-          lon:wc.weatherResponseModelData!.location != null ? '${wc.weatherResponseModelData!.location!.lon}': 'Error',),
         SizedBox(
           height: 30.h,
         ),
@@ -52,7 +45,7 @@ class CurrentLocationName extends StatelessWidget {
   const CurrentLocationName({
     super.key, required this.locationName,
   });
- final String locationName;
+  final String locationName;
   @override
   Widget build(BuildContext context) {
     return Text(locationName,style: GoogleFonts.lato(
