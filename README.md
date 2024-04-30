@@ -8,9 +8,7 @@ SF Weather provides users with current weather conditions, hourly forecasts, and
 
 ## Screenshots
 
-![Screenshot 1](assets/screenshoot/1.jpeg)
-![Screenshot 2](assets/screenshoot/2.jpeg)
-![Screenshot 3](assets/screenshoot/3.jpeg)
+<img src="assets/screenshoot/1.jpeg" alt="Screenshot 1" width="340" height="340"> <img src="assets/screenshoot/2.jpeg" alt="Screenshot 2" width="340" height="340"> <img src="assets/screenshoot/3.jpeg" alt="Screenshot 3" width="340" height="340">
 
 ## Features
 
