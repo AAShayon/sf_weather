@@ -27,3 +27,6 @@ To run the SF Weather app locally, follow these steps:
 4. Make sure you have an API key from OpenWeatherMap. If not, sign up and get your API key [here](https://www.weatherapi.com/).
 5. Save the file and run the app on your preferred device or emulator.
 
+## APK Download
+
+[Download SF Weather APK](testing_apk/weather%20test.apk)
