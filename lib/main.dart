@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:sf_weather/controller/weather_page_controller.dart';
 import 'package:sf_weather/utils/const.dart';
-import 'package:sf_weather/view/homepage/homepage.dart';
+import 'package:sf_weather/view/homepage/weather_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
         builder: (context, child) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
-            home:const Homepage(),
+            home:const Weatherpage(),
             theme: ThemeData(
               scaffoldBackgroundColor: Colors.transparent, // Make scaffold background transparent
             ),
