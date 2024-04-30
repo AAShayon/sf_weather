@@ -10,8 +10,8 @@ import 'package:sf_weather/view/homepage/widgets/temperature_with_o.dart';
 
 class TemperatureInformationPerHour extends StatelessWidget {
   const TemperatureInformationPerHour({
-    super.key,
-  });
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -50,142 +50,180 @@ class TemperatureInformationPerHour extends StatelessWidget {
           height: 160.h,
           child: weatherPageController.showTodayData
               ? ListView.builder(
-                  itemCount: weatherPageController.weatherResponseModelData!.forecast!.forecastday![0].hour!.length,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (BuildContext context, int index) {
-                    final data = weatherPageController.weatherResponseModelData!.forecast!.forecastday![0].hour;
-                    DateTime currentTime = DateTime.now();
-                    int currentHour = currentTime.hour;
-                    bool useCurrentTime = false;
+            itemCount: weatherPageController.weatherResponseModelData!.forecast!.forecastday![0].hour!.length,
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (BuildContext context, int index) {
+              final data = weatherPageController.weatherResponseModelData!.forecast!.forecastday![0].hour;
+              DateTime currentTime = DateTime.now();
+              int currentHour = currentTime.hour;
+              bool useCurrentTime = false;
 
-                    DateTime apiTime = DateTime.parse(data![index].time.toString());
-                    if (apiTime.hour == currentHour) {
-                      useCurrentTime = true;
-                    }
-                    int startingHour = useCurrentTime ? currentHour : currentTime.hour;
-                    String startingPeriod = startingHour < 12 ? 'AM' : 'PM';
-                    startingHour = startingHour % 12 == 0 ? 12 : startingHour % 12;
-                    int hour = (startingHour + index) % 12 == 0
-                        ? 12
-                        : (startingHour + index) % 12;
-                    String period = (startingHour + index) < 12
-                        ? startingPeriod
-                        : (startingPeriod == 'AM' ? 'PM' : 'AM');
-                    String time = '$hour $period';
+              DateTime apiTime = DateTime.parse(data![index].time.toString());
+              if (apiTime.hour == currentHour) {
+                useCurrentTime = true;
+              }
+              int startingHour = useCurrentTime ? currentHour : currentTime.hour;
+              String startingPeriod = startingHour < 12 ? 'AM' : 'PM';
+              startingHour = startingHour % 12 == 0 ? 12 : startingHour % 12;
+              int hour = (startingHour + index) % 12 == 0
+                  ? 12
+                  : (startingHour + index) % 12;
+              String period = (startingHour + index) < 12
+                  ? startingPeriod
+                  : (startingPeriod == 'AM' ? 'PM' : 'AM');
+              String time = '$hour $period';
 
-                    return TemperatureForecastCard(
-                      time: time,
-                      iconUrl: '${data[index].condition!.icon}' ?? '',
-                      temperatureRead: '${data[index].tempC}',
-                    );
-                  },
-                )
+              return TemperatureForecastCard(
+                time: time,
+                iconUrl: '${data[index].condition!.icon}' ?? '',
+                temperatureRead: '${data[index].tempC}',
+              );
+            },
+          )
               : weatherPageController.showNextDaysHourData
-                  ? ListView.builder(
-                      itemCount: weatherPageController.weatherResponseModelData!.forecast!.forecastday!.length,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (BuildContext context, int index) {
-                        final data = weatherPageController.weatherResponseModelData!.forecast!.forecastday![index];
-                        return InkWell(
-                          onTap: () {
-                            weatherPageController.toggleHourDataView(false);
-                            weatherPageController.setForecastDayIndex(forecastDayIndexValue: index);
+              ? ListView.builder(
+              itemCount: weatherPageController.weatherResponseModelData!.forecast!.forecastday!.length,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (BuildContext context, int index) {
+                final data = weatherPageController.weatherResponseModelData!.forecast!.forecastday![index];
+                return InkWell(
+                  onTap: () {
+                    weatherPageController.toggleHourDataView(false);
+                    weatherPageController.setForecastDayIndex(forecastDayIndexValue: index);
 
-                          },
-                          child: TemperatureForecastCard(
-                              time: DateFormat.MMMEd().format(DateTime.parse('${data.date}')).toString(),
-                              iconUrl: '${data.day!.condition!.icon}',
-                              temperatureRead: '${data.day!.avgtempC}'),
-                        );
-                      })
-                  :
+                  },
+                  child: TemperatureForecastCard(
+                      time: DateFormat.MMMEd().format(DateTime.parse('${data.date}')).toString(),
+                      iconUrl: '${data.day!.condition!.icon}',
+                      temperatureRead: '${data.day!.avgtempC}'),
+                );
+              })
+              :
           ListView.builder(
-                      itemCount: weatherPageController.weatherResponseModelData!.forecast!.forecastday![weatherPageController.forecastDayIndex!].hour!.length,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (BuildContext context, int index) {
-                        // final data = weatherPageController.weatherResponseModelData!.forecast!.forecastday![weatherPageController.forecastDayIndex!].hour;
-                        final data = weatherPageController.weatherResponseModelData!.forecast!.forecastday![weatherPageController.forecastDayIndex!].hour![index];
-                        DateTime apiTime = DateTime.parse(data.time.toString());
-                        final formattedTime = DateFormat('h:mm a').format(apiTime);
-                        return TemperatureForecastCard(
-                          time: formattedTime,
-                          iconUrl: '${data.condition!.icon}' ?? '',
-                          temperatureRead: '${data.tempC}',
-                        );
-                      },
-                    ),
+            itemCount: weatherPageController.weatherResponseModelData!.forecast!.forecastday![weatherPageController.forecastDayIndex!].hour!.length,
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (BuildContext context, int index) {
+              // final data = weatherPageController.weatherResponseModelData!.forecast!.forecastday![weatherPageController.forecastDayIndex!].hour;
+              final data = weatherPageController.weatherResponseModelData!.forecast!.forecastday![weatherPageController.forecastDayIndex!].hour![index];
+              DateTime apiTime = DateTime.parse(data.time.toString());
+              final formattedTime = DateFormat('h:mm a').format(apiTime);
+              return TemperatureForecastCard(
+                time: formattedTime,
+                iconUrl: '${data.condition!.icon}' ?? '',
+                temperatureRead: '${data.tempC}',
+              );
+            },
+          ),
         ),
       ],
     );
   }
 }
 
-class TemperatureForecastCard extends StatelessWidget {
+class TemperatureForecastCard extends StatefulWidget {
   const TemperatureForecastCard({
-    super.key,
+    Key? key,
     required this.time,
     required this.iconUrl,
     required this.temperatureRead,
-  });
+  }) : super(key: key);
 
   final String time;
   final String iconUrl;
   final String temperatureRead;
 
   @override
+  _TemperatureForecastCardState createState() => _TemperatureForecastCardState();
+}
+
+class _TemperatureForecastCardState extends State<TemperatureForecastCard> with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: Duration(milliseconds: 1000),
+      vsync: this,
+    );
+    _animation = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: Curves.easeInOut,
+      ),
+    );
+    _controller.forward();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      child: Column(
-        children: [
-          Flexible(
-            child: Card(
-              color: Colors.white.withOpacity(.1),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(50)),
-              child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Flexible(
-                      child: Text(time,
-                          style: GoogleFonts.lato(
-                            textStyle: Theme.of(context)
-                                .textTheme
-                                .bodySmall!
-                                .copyWith(color: Colors.white),
-                            fontWeight: FontWeight.w600,
-                            fontStyle: FontStyle.normal,
-                            fontSize: 13.sp,
-                          )),
+    return AnimatedBuilder(
+      animation: _animation,
+      builder: (context, child) {
+        return Transform.scale(
+          scale: _animation.value,
+          child: SizedBox(
+            child: Column(
+              children: [
+                Flexible(
+                  child: Card(
+                    color: Colors.white.withOpacity(.1),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50)),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Flexible(
+                            child: Text(widget.time,
+                                style: GoogleFonts.lato(
+                                  textStyle: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall!
+                                      .copyWith(color: Colors.white),
+                                  fontWeight: FontWeight.w600,
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 13.sp,
+                                )),
+                          ),
+                          SizedBox(
+                            height: 2.5.h,
+                          ),
+                          Image.network(
+                            'https:${widget.iconUrl}',
+                            width: 50.w,
+                            height: 50.h,
+                          ),
+                          TemperatureRead(
+                            temperature: widget.temperatureRead,
+                            fontsize: 30,
+                          ),
+                        ],
+                      ),
                     ),
-                    SizedBox(
-                      height: 2.5.h,
-                    ),
-                    Image.network(
-                      'https:$iconUrl',
-                      width: 50.w,
-                      height: 50.h,
-                    ),
-                    TemperatureRead(
-                      temperature: temperatureRead,
-                      fontsize: 30,
-                    ),
-                  ],
+                  ),
                 ),
-              ),
+                Container(
+                  height: 10.h,
+                  width: 10.w,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(100),
+                      color: Colors.white.withOpacity(.2)),
+                )
+              ],
             ),
           ),
-          Container(
-            height: 10.h,
-            width: 10.w,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(100),
-                color: Colors.white.withOpacity(.2)),
-          )
-        ],
-      ),
+        );
+      },
     );
   }
 }
