@@ -10,14 +10,14 @@ import 'package:sf_weather/view/homepage/widgets/location_information.dart';
 import 'package:sf_weather/view/homepage/widgets/clip_path_with_data.dart';
 import 'package:sf_weather/view/homepage/widgets/temperature_forecast_card.dart';
 
-class Homepage extends StatefulWidget {
-  const Homepage({super.key});
+class Weatherpage extends StatefulWidget {
+  const Weatherpage({super.key});
 
   @override
-  State<Homepage> createState() => _HomepageState();
+  State<Weatherpage> createState() => _WeatherpageState();
 }
 
-class _HomepageState extends State<Homepage> {
+class _WeatherpageState extends State<Weatherpage> {
 
   Position? currentPosition;
 
