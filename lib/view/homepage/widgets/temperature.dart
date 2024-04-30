@@ -3,69 +3,142 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:sf_weather/controller/weather_page_controller.dart';
-import 'package:sf_weather/view/homepage/widgets/temperature_with_o.dart';
 
-class TemperatureShowField extends StatelessWidget {
+class TemperatureShowField extends StatefulWidget {
   const TemperatureShowField({
-    super.key,
-  });
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  _TemperatureShowFieldState createState() => _TemperatureShowFieldState();
+}
+
+class _TemperatureShowFieldState extends State<TemperatureShowField>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 500),
+    );
+    _animation = CurvedAnimation(parent: _controller, curve: Curves.easeInOut);
+    _controller.forward(); // Start the animation
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final wc = Provider.of<WeatherPageController>(context);
+    if (wc.weatherResponseModelData != null &&
+        wc.weatherResponseModelData!.current != null) {
+      _controller.reset();
+      _controller.forward();
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     final wc = Provider.of<WeatherPageController>(context);
     if (wc.weatherResponseModelData == null ||
-        wc.weatherResponseModelData!.current == null
-
-    ) {
-      return const Center(child: CircularProgressIndicator(),);
+        wc.weatherResponseModelData!.current == null) {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
     }
-    return SizedBox(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+    return GestureDetector(
+      onTap: () {
+        _controller.reset();
+        _controller.forward();
+        wc.toggleTemperatureUnit();
+      },
+      behavior: HitTestBehavior.opaque,
+      child: Column(
         children: [
-          Container(
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,color:Colors.transparent.withOpacity(.02)
-            ),
-            child:    wc.weatherResponseModelData!.current!.condition != null
-                ? Image.network(
-              'https:${wc.weatherResponseModelData!.current!.condition!.icon}',
-              width: 100.w,
-              height: 100.h,) : Image.asset(
-              'assets/placeholder.png',
-              width: 100.w,
-              height: 100.h,
+          SizedBox(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ScaleTransition(
+                  scale: _animation,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.transparent.withOpacity(.02),
+                    ),
+                    child: wc.weatherResponseModelData!.current!.condition != null
+                        ? Image.network(
+                      'https:${wc.weatherResponseModelData!.current!.condition!.icon}',
+                      width: 100.w,
+                      height: 100.h,
+                    )
+                        : Image.asset(
+                      'assets/placeholder.png',
+                      width: 100.w,
+                      height: 100.h,
+                    ),
+                  ),
+                ),
+                SizedBox(width: 15.w),
+                AnimatedBuilder(
+                  animation: _controller,
+                  builder: (context, child) {
+                    return Transform.scale(
+                      scale: _animation.value,
+                      child: RichText(
+                        text: TextSpan(
+                          text: wc.weatherResponseModelData!.current != null
+                              ? '${_formatTemperature(wc.getCurrentTemperature(wc.weatherResponseModelData!.current!.tempC))}'
+                              : '0',
+                          style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 80,
+                            fontStyle: FontStyle.normal,
+                          ),
+                          children: <TextSpan>[
+                            TextSpan(text: '°${wc.getUnitLabel()}'), // Display the temperature unit
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ],
             ),
           ),
-
-          SizedBox(width: 15.w,),
-          TemperatureRead(
-            temperature: wc.weatherResponseModelData!.current != null ? '${wc
-                .weatherResponseModelData!.current!.tempC }':'0', fontsize: 80,),
+          SizedBox(height: 10.h), // Adjust the spacing as needed
+          SlideTransition(
+            position: Tween<Offset>(
+              begin: Offset(-1, 0),
+              end: Offset.zero,
+            ).animate(_controller),
+            child: Text(
+              '${wc.weatherResponseModelData!.current!.condition?.text ?? 'Error'} H: ${wc.weatherResponseModelData!.current!.humidity ?? 'Error'}° L:${wc.weatherResponseModelData!.location?.lon ?? 'Error'}°',
+              style: GoogleFonts.lato(
+                textStyle: Theme.of(context).textTheme.titleLarge!.copyWith(
+                  color: Colors.white,
+                ),
+                fontStyle: FontStyle.normal,
+              ),
+            ),
+          ),
         ],
       ),
     );
   }
-}
 
-
-class MoreInformation extends StatelessWidget {
-  const MoreInformation({
-    super.key, required this.condition, required this.humidity, required this.lon,
-  });
-  final String condition;
-  final String humidity;
-  final String lon;
-  @override
-  Widget build(BuildContext context) {
-    return Text('$condition -H:$humidity° L:$lon°', style: GoogleFonts.lato(
-      textStyle: Theme
-          .of(context)
-          .textTheme
-          .titleLarge!
-          .copyWith(color: Colors.white),
-      fontStyle: FontStyle.normal,
-
-    ),);
+  String _formatTemperature(double temperature) {
+    // Formats temperature to display one decimal place
+    return temperature.toStringAsFixed(1);
   }
 }
