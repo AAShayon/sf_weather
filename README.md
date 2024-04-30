@@ -29,4 +29,4 @@ To run the SF Weather app locally, follow these steps:
 
 ## APK Download
 
-[Download SF Weather APK](testing_apk/weather test.apk)
+[Download SF Weather APK](testing_apk/weather%20test.apk)
