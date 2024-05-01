@@ -17,6 +17,30 @@ class _TemperatureShowFieldState extends State<TemperatureShowField>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
+  String WeatherImage(String conditionName) {
+    if (conditionName == 'Clear') {
+      return 'assets/clear.png';
+    } else if (conditionName == 'Overcast') {
+      return 'assets/overcast.png';
+    } else if (conditionName == 'Moderate rain') {
+      return 'assets/lightrain.png';
+    } else if (conditionName == 'Sunny') {
+      return 'Very High';
+    }  else if (conditionName == 'Heavy cloud') {
+      return 'assets/heavycloud.png';
+    }  else if (conditionName == 'Partly cloudy') {
+      return 'assets/heavycloud.png';
+    } else if (conditionName == 'Heavy rain') {
+      return 'assets/heavyrain.png';
+    }  else if (conditionName == 'Light cloud') {
+      return 'assets/lightcloud.png';
+    } else if (conditionName == 'Light rain') {
+      return 'assets/lightrain.png';
+    }else {
+      return 'assets/placeholder.png';
+    }
+  }
+
 
   @override
   void initState() {
@@ -55,6 +79,7 @@ class _TemperatureShowFieldState extends State<TemperatureShowField>
         child: CircularProgressIndicator(),
       );
     }
+
     return GestureDetector(
       onTap: () {
         _controller.reset();
@@ -75,14 +100,8 @@ class _TemperatureShowFieldState extends State<TemperatureShowField>
                       shape: BoxShape.circle,
                       color: Colors.transparent.withOpacity(.02),
                     ),
-                    child: wc.weatherResponseModelData!.current!.condition != null
-                        ? Image.network(
-                      'https:${wc.weatherResponseModelData!.current!.condition!.icon}',
-                      width: 100.w,
-                      height: 100.h,
-                    )
-                        : Image.asset(
-                      'assets/placeholder.png',
+                    child: Image.asset(
+                      WeatherImage('${wc.weatherResponseModelData!.current!.condition!.text}'),
                       width: 100.w,
                       height: 100.h,
                     ),
