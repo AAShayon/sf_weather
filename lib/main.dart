@@ -3,11 +3,13 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:sf_weather/controller/weather_page_controller.dart';
+import 'package:sf_weather/utils/%20logger.dart';
 import 'package:sf_weather/utils/const.dart';
 import 'package:sf_weather/view/homepage/weather_page.dart';
 
 void main() {
   runApp(const MyApp());
+  fetchData();
 }
 
 class MyApp extends StatelessWidget {
