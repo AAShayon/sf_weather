@@ -38,7 +38,7 @@ class _WeatherpageState extends State<Weatherpage> {
   loadData(BuildContext context)async{
     currentPosition =await Helper.determinePosition();
     final WeatherPageController weatherPageController=Provider.of<WeatherPageController>(context,listen: false);
-    await weatherPageController.getWeatherResponse(city: "${currentPosition!.longitude}, ${currentPosition!.latitude}");
+    await weatherPageController.getWeatherResponse(city: "${currentPosition!.latitude}, ${currentPosition!.longitude}");
   }
 
   @override
